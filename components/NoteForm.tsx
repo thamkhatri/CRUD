@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 type NoteFormProps = {
     initialTitle?: string;
     initialContent?: string;
@@ -8,38 +10,31 @@ export default function NoteForm({
     initialContent = "",
     onSubmit,
 }: NoteFormProps) {
-    // function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.currentTarget);
-    //     onSubmit({
-    //         title: formData.get("title") as string,
-    //         content: formData.get("content") as string,
-    //     });
+    const [title, setTitle] = useState(initialTitle);
+    const [content, setContent] = useState(initialContent);
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        onSubmit({ title, content });
 
+    }
     return (
 
         <form
-            onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-
-                onSubmit({
-                    title: formData.get("title") as string,
-                    content: formData.get("content") as string,
-                });
-            }}
+            onSubmit={handleSubmit}
             className="space-y-4"
         >
             <input
+                value={title}
                 name="title"
-                defaultValue={initialTitle}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Title"
                 className="w-full border p-2 rounded"
             />
 
             <textarea
+                value={content}
                 name="content"
-                defaultValue={initialContent}
+                onChange={(e) => setContent(e.target.value)}
                 placeholder="Content"
                 className="w-full border p-2 rounded"
                 rows={5}
@@ -53,15 +48,6 @@ export default function NoteForm({
             </button>
         </form>
 
-        // <form onSubmit={handleSubmit} className="bg-amber-200">
-        //     <input
-        //         name="title"
-        //         type="text"
-        //         placeholder="text"
-        //         required />
-        //     <textarea name="content"
-        //         placeholder="iddd" rows={5} required></textarea>
-        //     <button className="bg-black text-white px-4 py-2 rounded">save note</button>
-        // </form>
+
     )
 }

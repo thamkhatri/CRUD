@@ -1,5 +1,5 @@
 "use client";
-import { dummyNotes } from "@/lib/dummynotes";
+// import { dummyNotes } from "@/lib/dummynotes";
 import { useRouter } from "next/navigation";
 import NoteForm from "@/components/NoteForm";
 // type Props = {
