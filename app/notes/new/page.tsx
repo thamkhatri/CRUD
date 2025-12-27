@@ -3,9 +3,16 @@ import { useRouter } from "next/navigation";
 import NoteForm from "@/components/NoteForm";
 export default function NewNotePage() {
     const router = useRouter();
-    function handleCreate(data: { title: string; content: string }) {
-        console.log("created note", data);
-        alert("notecreated ");
+    async function handleCreate(data: { title: string; content: string }) {
+        await fetch("/api/notes", {
+            method: "Post",
+            headers: {
+                "content-type": "application/json",
+
+            },
+            body: JSON.stringify(data)
+        });
+
         router.push("/notes");
     }
 

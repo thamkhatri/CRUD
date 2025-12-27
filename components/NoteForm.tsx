@@ -12,9 +12,12 @@ export default function NoteForm({
 }: NoteFormProps) {
     const [title, setTitle] = useState(initialTitle);
     const [content, setContent] = useState(initialContent);
-    function handleSubmit(e: React.FormEvent) {
+
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        onSubmit({ title, content });
+        const formData = new FormData(e.currentTarget);
+        onSubmit({ title: formData.get("title") as string, content: formData.get("cotent") as string });
 
     }
     return (
